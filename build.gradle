@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:6.1.0'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'maven'
+apply plugin: 'idea'
+
+group 'dev.JustRed23'
+version '1.0'
+
+description = 'Launcher for Grandfather#2911 on discord'
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_1_8
+
+allprojects {
+    updateVersion()
+}
+
+def updateVersion() {
+    ant.propertyfile(file: "./src/main/resources/application.properties") {
+        entry( key: "version", value: version)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.gradle.org/gradle/libs-releases-local" }
+}
+
+dependencies {
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+    compile 'org.eclipse.jgit:org.eclipse.jgit:5.12.0.202106070339-r'
+    compile 'org.gradle:gradle-tooling-api:7.1'
+}
