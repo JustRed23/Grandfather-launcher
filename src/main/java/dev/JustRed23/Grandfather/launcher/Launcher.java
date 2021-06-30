@@ -153,6 +153,7 @@ public class Launcher {
 
         build.run();
         project.close();
+        connector.disconnect();
 
         result.close();
 
