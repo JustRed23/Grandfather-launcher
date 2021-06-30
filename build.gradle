@@ -12,8 +12,9 @@ apply plugin: 'application'
 apply plugin: 'maven'
 apply plugin: 'idea'
 
-group 'dev.JustRed23'
-version '1.0'
+mainClassName = 'dev.JustRed23.Grandfather.launcher.Launcher'
+group = 'dev.JustRed23'
+version = '1.0'
 
 description = 'Launcher for Grandfather#2911 on discord'
 
