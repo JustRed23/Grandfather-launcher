@@ -3,11 +3,7 @@ package dev.JustRed23.Grandfather.launcher;
 import dev.JustRed23.Grandfather.versioning.ProgramVersion;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
-import org.eclipse.jgit.util.FS;
 import org.eclipse.jgit.util.FileUtils;
-import org.eclipse.jgit.util.TemporaryBuffer;
 import org.gradle.tooling.BuildLauncher;
 import org.gradle.tooling.GradleConnector;
 import org.gradle.tooling.ProjectConnection;
@@ -16,13 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.CopyOption;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 public class Launcher {
 
@@ -41,6 +34,9 @@ public class Launcher {
         Properties properties = new Properties();
         properties.load(Launcher.class.getClassLoader().getResourceAsStream("application.properties"));
         ProgramVersion version = ProgramVersion.fromString((String) properties.getOrDefault("version", "1"));
+
+        if (Arrays.stream(args).anyMatch("-update"::equalsIgnoreCase))
+            downloadLatestVersion();
 
         LOGGER.info("Running Launcher version {}", version);
 
@@ -139,7 +135,7 @@ public class Launcher {
                     .setURI("https://github.com/JustRed23/Grandfather-rev")
                     .call();
 
-        LOGGER.info("Downloading Gradle version {}", gradleVersion);
+        LOGGER.info("Starting Gradle version {}", gradleVersion);
 
         GradleConnector connector = GradleConnector.newConnector();
         connector.useGradleVersion(GradleVersion.version(gradleVersion).getVersion());

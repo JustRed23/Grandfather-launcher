@@ -14,7 +14,7 @@ apply plugin: 'idea'
 
 mainClassName = 'dev.JustRed23.Grandfather.launcher.Launcher'
 group = 'dev.JustRed23'
-version = '1.0'
+version = '1.1'
 
 description = 'Launcher for Grandfather#2911 on discord'
 
@@ -39,7 +39,7 @@ repositories {
 }
 
 dependencies {
-    compile 'ch.qos.logback:logback-classic:1.2.3'
-    compile 'org.eclipse.jgit:org.eclipse.jgit:5.12.0.202106070339-r'
-    compile 'org.gradle:gradle-tooling-api:7.1'
+    implementation 'ch.qos.logback:logback-classic:1.2.5'
+    implementation 'org.eclipse.jgit:org.eclipse.jgit:5.12.0.202106070339-r'
+    implementation 'org.gradle:gradle-tooling-api:7.1'
 }
